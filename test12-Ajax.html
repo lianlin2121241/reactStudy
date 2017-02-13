@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="application/javascript" src="build/jquery.min.js"></script>
+    <script type="application/javascript" src="build/react.js"></script>
+    <script type="application/javascript" src="build/react-dom.js"></script>
+    <script type="application/javascript" src="build/browser.min.js"></script>
+    <!--<script type="application/javascript" src="node_modules/react/dist/react.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/react-dom/dist/react-dom.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/browser/browser.js"></script>-->
+</head>
+<body>
+<div id="example"></div>
+</body>
+    <script type="text/babel">
+        var UserGist=React.createClass({
+            getInitialState:function(){
+                return {
+                    userName:"",
+                    lastGisUrl:""
+                }
+            },
+            //使用 componentDidMount 方法设置 Ajax 请求，等到请求成功，再用 this.setState 方法重新渲染 UI
+            componentDidMount:function(){
+                $.get(this.props.source,function(result){
+                    var lastGist=result[0]
+                    console.log(1);
+                    if(this.isMounted()){
+                        console.log(2);
+                        this.setState({
+                            userName:lastGist.userName,
+                            lastGisUrl:lastGist.lastGisUrl
+                        })
+                    }
+                }.bind(this))
+            },
+            render:function(){
+                return (
+                   <div>
+                        {this.state.userName}'s last gist is <a href="{this.state.lastGisUrl}">here</a>
+                    </div>
+                )
+            }
+        })
+
+        ReactDOM.render(
+            <UserGist source="data/user.json"/>,
+            document.getElementById("example")
+        )
+    </script>
+</html>

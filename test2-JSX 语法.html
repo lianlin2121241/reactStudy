@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="application/javascript" src="build/react.js"></script>
+    <script type="application/javascript" src="build/react-dom.js"></script>
+    <script type="application/javascript" src="build/browser.min.js"></script>
+    <!--<script type="application/javascript" src="node_modules/react/dist/react.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/react-dom/dist/react-dom.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/browser/browser.js"></script>-->
+</head>
+<body>
+<div id="example"></div>
+</body>
+<script type="text/babel">
+    var names=['Alice','Emily','Kate'];
+    ReactDOM.render(
+        <div>
+        {
+            names.map(function(name){
+                return <div>Hello,{name}!</div>
+            })
+        }
+        </div>,
+        document.getElementById("example")
+    )
+</script>
+</html>
