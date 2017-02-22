@@ -25,7 +25,10 @@
             //组件的属性可以在组件类的 this.props 对象上获取
             //class 属性需要写成 className ，for 属性需要写成 htmlFor
             <HelloMessage className="aa" name="John"/>,
-            document.getElementById("example")
+            document.getElementById("example"),
+            function(){
+                console.log("完成");
+            }
         )
     </script>
 </html>
