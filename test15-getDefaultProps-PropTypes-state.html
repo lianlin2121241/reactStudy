@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="application/javascript" src="build/react.js"></script>
+    <script type="application/javascript" src="build/react-dom.js"></script>
+    <script type="application/javascript" src="build/browser.min.js"></script>
+    <!--<script type="application/javascript" src="node_modules/react/dist/react.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/react-dom/dist/react-dom.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/browser/browser.js"></script>-->
+</head>
+<body>
+<div id="example"></div>
+</body>
+    <script type="text/babel">
+        var MessageBox=React.createClass({
+            getInitialState:function(){
+                return{
+                    panelTitle:"表头来自State",
+                    content:[
+                        "表头来自State消息1",
+                        "表头来自State消息2",
+                        "表头来自State消息3"
+                    ]
+                }
+            },
+            render:function(){
+                return (
+                    <div>
+                        <p>{this.state.panelTitle}</p>
+                        <RenderChild content={this.state.content}/>
+                    </div>
+                )
+            }
+        })
+
+        var RenderChild=React.createClass({
+            propTypes:{
+                tiltes:React.PropTypes.array
+            },
+            //getDefaultProps 方法可以用来设置组件属性的默认值
+            getDefaultProps:function(){
+                return {
+                    content:[
+                        "默认子消息"
+                    ]
+                }
+            },
+            render:function(){
+                var arr=[];
+                var prop=this.props.content;
+                prop.forEach(function(content,index){
+                    arr.push(
+                        <div>码农说：{content}</div>
+                    )
+                })
+                return <div>{arr}</div>
+            }
+        })
+
+        ReactDOM.render(
+            <MessageBox/>,
+            document.getElementById("example")
+        )
+    </script>
+</html>

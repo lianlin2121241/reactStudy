@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="application/javascript" src="build/react.js"></script>
+    <script type="application/javascript" src="build/react-dom.js"></script>
+    <script type="application/javascript" src="build/browser.min.js"></script>
+    <!--<script type="application/javascript" src="node_modules/react/dist/react.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/react-dom/dist/react-dom.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/browser/browser.js"></script>-->
+</head>
+<body>
+<div id="example"></div>
+</body>
+    <script type="text/babel">
+        var FormApp=React.createClass({
+            getInitialState:function(){
+                return {
+                    inputValue:"input value",
+                    selectValue:"A",
+                    radioValue:"B",
+                    textareaValue:"some text here"
+                }
+            },
+            handleInput:function(e){
+                this.setState({
+                    inputValue:e.target.value
+                })
+            },
+            handleSubmit:function(e){
+                e.preventDefault();
+                console.log("form submiting");
+                console.log(e);
+            },
+            render:function(){
+                return(
+                    <form onSubmit={this.handleSubmit}>
+                        //如果使用value赋值的话，必须有触发函数修改状态值
+                        <input type="text" value={this.state.inputValue} onChange={this.handleInput}/>
+                        <select defaultValue="B">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                        <br/>
+                        <input name="goodRadio" type="radio" value="A"/>
+                        <input name="goodRadio" type="radio" value="B" defaultChecked/>
+                        <input name="goodRadio" type="radio" value="C"/>
+                        <br/>
+                        <input name="goodCheck" type="checkbox" value="A"/>
+                        <input name="goodCheck" type="checkbox" value="B"/>
+                        <input name="goodCheck" type="checkbox" value="C" defaultChecked/>
+                        <br/>
+                        <textarea defaultValue="some text"></textarea>
+                        <button type="submit">提交</button>
+                    </form>
+                )
+            }
+        })
+
+        var clickCompoment=ReactDOM.render(
+            <FormApp/>,
+            document.getElementById("example")
+        )
+    </script>
+</html>

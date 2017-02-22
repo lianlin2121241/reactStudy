@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="application/javascript" src="build/react.js"></script>
+    <script type="application/javascript" src="build/react-dom.js"></script>
+    <script type="application/javascript" src="build/browser.min.js"></script>
+    <!--<script type="application/javascript" src="node_modules/react/dist/react.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/react-dom/dist/react-dom.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/browser/browser.js"></script>-->
+</head>
+<body>
+<div id="example"></div>
+</body>
+    <script type="text/babel">
+        var FormApp=React.createClass({
+            getInitialState:function(){
+                return {
+                    inputValue:"input value",
+                    selectValue:"A",
+                    radioValue:"B",
+                    checkValue:[],
+                    textareaValue:"some text here"
+                }
+            },
+            handleSubmit:function(e){
+                e.preventDefault();
+                var obj={
+                    input:this.refs.textEle.value,
+                    select:this.refs.selectEle.value,
+                    textarea:this.refs.textareaEle.value,
+                    checkbox:this.state.checkValue,
+                    radio:this.state.radioValue
+                }
+                console.log(obj);
+                console.log("form submiting");
+                console.log(e);
+                this.refs.radioGroupEle.handleAlert();
+            },
+            handleRadio:function(e){
+                this.setState({
+                    radioValue:e.target.value
+                })
+            },
+            handleCheck:function(e){
+                var checkValue=this.state.checkValue.slice();
+                var newVal=e.target.value;
+                var index=checkValue.indexOf(newVal);
+                if(index==-1){
+                    checkValue.push(newVal);
+                }else{
+                    checkValue.splice(index,1);
+                }
+                this.setState({
+                    checkValue:checkValue
+                })
+            },
+            render:function(){
+                return(
+                    <form onSubmit={this.handleSubmit}>
+                        <input type="text" defaultValue={this.state.inputValue} ref="textEle"/>
+                        <input type="text" defaultValue={this.state.inputValue} ref={function(comp){console.log(comp.select().focus())}}/>
+                        <select defaultValue="B" ref="selectEle">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                        <br/>
+                        <RadioGroup ref="radioGroupEle" handleRadio={this.handleRadio}/>
+                        <br/>
+                        <CheckGroup handleCheck={this.handleCheck}/>
+                        <br/>
+                        <textarea defaultValue={this.state.textareaValue} ref="textareaEle"></textarea>
+                        <button type="submit">提交</button>
+                    </form>
+                )
+            }
+        })
+
+        var RadioGroup=React.createClass({
+            handleAlert:function(){
+                alert("我被父组件通过ref调用了！");
+            },
+            render:function(){
+                return (
+                    <span>
+                        <input onChange={this.props.handleRadio} name="goodRadio" type="radio" value="A"/>
+                        <input onChange={this.props.handleRadio} name="goodRadio" type="radio" value="B" defaultChecked/>
+                        <input onChange={this.props.handleRadio} name="goodRadio" type="radio" value="C"/>
+                    </span>
+                )
+            }
+        })
+
+        var CheckGroup=React.createClass({
+            render:function(){
+                return(
+                    <span>
+                        <input onChange={this.props.handleCheck} name="goodCheck" type="checkbox" value="A"/>
+                        <input onChange={this.props.handleCheck} name="goodCheck" type="checkbox" value="B"/>
+                        <input onChange={this.props.handleCheck} name="goodCheck" type="checkbox" value="C"/>
+                    </span>
+                )
+            }
+        })
+
+        var clickCompoment=ReactDOM.render(
+            <FormApp/>,
+            document.getElementById("example")
+        )
+    </script>
+</html>

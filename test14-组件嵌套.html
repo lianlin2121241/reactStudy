@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="application/javascript" src="build/jquery.min.js"></script>
+    <script type="application/javascript" src="build/react.js"></script>
+    <script type="application/javascript" src="build/react-dom.js"></script>
+    <script type="application/javascript" src="build/browser.min.js"></script>
+    <!--<script type="application/javascript" src="node_modules/react/dist/react.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/react-dom/dist/react-dom.js"></script>-->
+    <!--<script type="application/javascript" src="node_modules/browser/browser.js"></script>-->
+</head>
+<body>
+<div id="example"></div>
+</body>
+<script type="text/babel">
+    var Parent=React.createClass({
+        render:function(){
+            var children=[];
+            for(var i=0;i<10;i++){
+                children.push(<Child key={"key_"+i}/>)
+            }
+            return (
+                <div>
+                    <p>HELLO world</p>
+                    {children}
+                </div>
+            );
+        }
+    })
+    var Child=React.createClass({
+        render:function(){
+            return (
+                <div>
+                    <li>LI</li>
+                    <ChildChild/>
+                </div>
+            )
+        }
+    })
+    var ChildChild=React.createClass({
+        render:function(){
+            return (
+                <span>备注</span>
+            )
+        }
+    })
+
+    ReactDOM.render(
+        <Parent/>,
+            document.getElementById("example")
+    )
+</script>
+</html>
