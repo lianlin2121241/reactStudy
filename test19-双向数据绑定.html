@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="application/javascript" src="build/react-with-addons.js"></script>
+    <script type="application/javascript" src="build/JSXTransformer.js"></script>
+</head>
+<body>
+<div id="example"></div>
+</body>
+    <script type="text/jsx">
+        var EasyForm=React.createClass({
+            mixins:[React.addons.LinkedStateMixin],
+            getInitialState:function(){
+                return{
+                    message:'react is good',
+                    isReactAwesome:true
+                }
+            },
+            render:function(){
+                return (
+                    <div>
+                        <h1>I want say:{this.state.message}</h1>
+                        <h2>Is React is good?{this.state.isReactAwesome?"非常好":"一般般啦"}</h2>
+                        <br/>
+                        <input type="text" valueLink={this.linkState("message")}/>
+                        <br/>
+                        <input type="checkbox" checkedLink={this.linkState("isReactAwesome")}/>
+                        <br/>
+                        <SubComp message={this.linkState("message")} isReactAwesome={this.linkState("isReactAwesome")} />
+                    </div>
+                )
+            }
+        })
+
+        var SubComp=React.createClass({
+            render:function(){
+                return (
+                    <div>
+                        <h3>这是个子组件</h3>
+                        <SubSubComp {...this.props}/>
+                    </div>
+                )
+            }
+        })
+
+        var SubSubComp=React.createClass({
+            render:function(){
+                return(
+                    <div>
+                        <input type="text" valueLink={this.props.message}/>
+                        <br/>
+                        <input type="checkbox" checkedLink={this.props.isReactAwesome}/>
+                    </div>
+                )
+            }
+        })
+
+        React.render(
+            <EasyForm/>,
+            document.getElementById("example")
+        )
+    </script>
+</html>

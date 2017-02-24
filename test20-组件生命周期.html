@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="application/javascript" src="build/react-with-addons.js"></script>
+    <script type="application/javascript" src="build/JSXTransformer.js"></script>
+</head>
+<body>
+<div id="example"></div>
+</body>
+    <script type="text/jsx">
+        var Message=React.createClass({
+            //2定义state
+            getInitialState:function(){
+                console.log("getInitialState");
+                return{
+                    count:0,
+                    updateCount:0
+                }
+            },
+            //1定义prop
+            getDefaultProps:function(){
+                console.log("getDefaultProps");
+                return{}
+            },
+            //3mount前
+            componentWillMount:function(){
+                var self=this;
+//                self.timer=setInterval(function(){
+//                    self.setState({
+//                        count:self.state.count+1
+//                    })
+//                },1000)
+                console.log("componentWillMount");
+            },
+            //5mount后
+            componentDidMount:function(){
+                console.log("componentDidMount");
+            },
+            //unmountComponentAtNode后
+            componentWillUnmount:function(){
+                console.log("componentWillUnmount");
+                clearInterval(this.timer);
+            },
+            killMySelf:function(){
+                React.unmountComponentAtNode(document.getElementById("example"))
+            },
+            //更新前判断是否需要更新
+            shouldComponentUpdate:function(nextProp,nextState){
+//                console.log(nextProp);
+//                console.log(nextState);//状态
+                console.log("shouldComponentUpdate");
+                if(nextState.updateCount>3){
+                    return false;
+                }
+                return true;
+            },
+            //更新前
+            componentWillUpdate:function(nextProp,nextState){
+                console.log("componentWillUpdate");
+            },
+            //更新后
+            componentDidUpdate:function(){
+                console.log("componentDidUpdate");
+            },
+            doUpdate:function(){
+                this.setState({
+                    updateCount:this.state.updateCount+1
+                })
+            },
+            //4渲染
+            render:function(){
+                console.log("渲染");
+                return (
+                    <div>
+                        <h1>I want say:Hello React</h1>
+                        <h1>Count:{this.state.count}</h1>
+                        <button onClick={this.killMySelf}>清除插件</button>
+                        <br/>
+                        <h1>updateCount:{this.state.updateCount}</h1>
+                        <button onClick={this.doUpdate}>手动更新</button>
+                    </div>
+                )
+            }
+        })
+
+        React.render(
+            <Message/>,
+            document.getElementById("example")
+        )
+    </script>
+</html>
