@@ -1,0 +1,21 @@
+{
+  "name": "aa",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "limingle <lml241@163.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/lianlin2121241/reactStudy",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

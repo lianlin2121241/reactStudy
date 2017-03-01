@@ -51,7 +51,7 @@
 //                console.log(nextProp);
 //                console.log(nextState);//状态
                 console.log("shouldComponentUpdate");
-                if(nextState.updateCount>3){
+                if(nextState.updateCount>8){
                     return false;
                 }
                 return true;
@@ -80,7 +80,26 @@
                         <br/>
                         <h1>updateCount:{this.state.updateCount}</h1>
                         <button onClick={this.doUpdate}>手动更新</button>
+                        <br/>
+                        <SubMessage count={this.state.updateCount}/>
                     </div>
+                )
+            }
+        })
+
+        var SubMessage=React.createClass({
+            componentWillReceiveProps:function(nextProp){
+                console.log("子组件将要获得prop")
+            },
+            shouldComponentUpdate:function(nextProp){
+                if(nextProp.count>5){
+                    return false;
+                }
+                return true;
+            },
+            render:function(){
+                return (
+                    <h3>当前计数是：{this.props.count}</h3>
                 )
             }
         })

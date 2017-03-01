@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="application/javascript" src="build/react-with-addons.js"></script>
+    <script type="application/javascript" src="build/JSXTransformer.js"></script>
+</head>
+<body>
+<div id="example"></div>
+</body>
+    <script type="text/jsx">
+        var stateRecordMixin={
+            componentWillMount:function(){
+                this.oldStates=[];
+            },
+            componentWillUpdate:function(nextProp,nextState){
+                this.oldStates.push(nextState);
+            },
+            previousState:function(){
+                var index=this.oldStates.length-1;
+                return index==-1?{}:this.oldStates[index];
+            }
+        }
+        var Message=React.createClass({
+            mixins:[stateRecordMixin],
+            getInitialState:function(){
+                return{
+                    count:0
+                }
+            },
+            doUpdate:function(){
+                this.setState({
+                    count:this.state.count+1
+                })
+                console.log(this.previousState());
+            },
+            render:function(){
+                console.log("渲染");
+                return (
+                    <div>
+                        <h1>updateCount:{this.state.count}</h1>
+                        <button onClick={this.doUpdate}>手动更新</button>
+                        <br/>
+                        <SubMessage count={this.state.count}/>
+                    </div>
+                )
+            }
+        })
+
+        var SubMessage=React.createClass({
+            mixins:[stateRecordMixin],
+            getInitialState:function(){
+                return {
+                    count:0
+                }
+            },
+            componentWillReceiveProps:function(nextProp){
+//                console.log(nextProp);
+                this.setState({
+                    count:nextProp.count*2
+                })
+            },
+            render:function(){
+                console.log(this.previousState());
+                return (
+                    <h3>子组件当前计数是：{this.state.count}</h3>
+                )
+            }
+        })
+
+        React.render(
+            <Message/>,
+            document.getElementById("example")
+        )
+    </script>
+</html>
