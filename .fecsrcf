@@ -1,0 +1,24 @@
+{
+    "files": [
+        "app"
+    ],
+
+    "eslint": {
+        "env": {
+            "node": true,
+            "browser": false
+        },
+
+        "rules": {
+            "no-console": 0
+        }
+    },
+
+    "csshint": {
+
+    },
+
+    "htmlcs": {
+
+    }
+}

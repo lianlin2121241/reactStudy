@@ -15,7 +15,7 @@ gulp.task("browserify",function(){
 //live reload
 gulp.task("connect",function(){
     connect.server({
-        root:"./",
+        //root:"./",
         port:port,
         livereload:true
     })
