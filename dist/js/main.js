@@ -197,7 +197,7 @@ module.exports=React.createClass({displayName: "exports",
  */
 var React=require("react");
 
-module .exports=React.createClass({displayName: "exports",
+module.exports=React.createClass({displayName: "exports",
     render:function(){
         return (
         	React.createElement("button", {id: "add-question-btn", onClick: this.props.onToggleForm, className: "btn btn-success"}, "添加问题")
